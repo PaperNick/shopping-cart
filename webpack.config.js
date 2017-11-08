@@ -40,6 +40,18 @@ module.exports = {
         test: /\.json$/,
         use: ['json-loader']
       },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg)$/,
+        use: [
+          { loader:'url-loader', options: { limit: 8192, name: 'assets/images/[hash].[ext]' } }
+        ]
+      },
+      {
+        test: /\.(woff|woff2|ttf|eot)$/,
+        use: [
+          { loader:'url-loader', options: { limit: 8192, name: 'assets/fonts/[hash].[ext]' } }
+        ]
+      }
     ]
   },
   plugins: [
@@ -63,7 +75,13 @@ module.exports = {
       name: 'vendor',
       minChunks: module => /node_modules/.test(module.resource),
       chunks: ['app'],
+    }),
+
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
     })
+
   ],
   devtool: 'source-map'
 };

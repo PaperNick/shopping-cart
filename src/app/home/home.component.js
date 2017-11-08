@@ -3,8 +3,8 @@ class Home {
     this.salutation = salutation;
   }
 
-  greet() {
-    return `${this.salutation} You are using Webpack 3 with Babel ES6!`;
+  render() {
+    return require('./home.html');
   }
 }
 

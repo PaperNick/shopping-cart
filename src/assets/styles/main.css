@@ -1,5 +1,102 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
 html, body {
   height: 100%;
   min-height: 100%;
   margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+span.active {
+  background-color: gray;
+}
+
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {height: 450px}
+
+/* Set black background color, white text and some padding */
+footer {
+  background-color: #888;
+  color: white;
+  padding: 15px;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+  .sidenav {
+    height: auto;
+    padding: 15px;
+  }
+  .row.content {
+    height:auto;
+  }
+}
+
+.jumbotron {
+    margin-bottom: 0;
+}
+
+.jumbotron {
+    padding-top: 48px;
+    padding-bottom: 48px;
+}
+
+.form-signin {
+  max-width: 90%;
+  width: 700px;
+  margin: 30px auto;
+  position: relative;
+  padding: 24px 23px 20px;
+  background-color: #edeff1;
+  border-radius: 6px;
+}
+
+.font-size-20 {
+  font-size: 20px;
+}
+
+.margin-top-5 {
+  margin-top: 5px;
+}
+
+.margin-top-10 {
+  margin-top: 10px;
+}
+
+.margin-top-15 {
+  margin-top: 15px;
+}
+
+.margin-top-20 {
+  margin-top: 20px;
+}
+
+.margin-right-5 {
+  margin-right: 5px;
+}
+
+.margin-right-10 {
+  margin-right: 10px;
+}
+
+.card-container > .card {
+  max-width: 20rem;
+}
+
+.card-block {
+  padding: 1.25rem;
+}
+
+.card {
+  position: relative;
+  display: block;
+  margin-bottom: .75rem;
+  background-color: #fff;
+  border-radius: .25rem;
+  border: 1px solid rgba(0,0,0,.125);
 }
