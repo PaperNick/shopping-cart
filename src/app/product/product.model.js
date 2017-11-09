@@ -7,18 +7,18 @@ class ProductModel {
 
 
   constructor(id, title, description, image, price) {
-    this.id = id;
-    this.title = title;
-    this.description = this.description;
-    this.image = image;
-    this.price = price;
+    this.id =id;
+    this.setTitle(title);
+    this.setDescription(description);
+    this.setImage(image);
+    this.setPrice(price);
   }
 
-  get title() {
+  getTitle() {
     return this.title;
   }
 
-  set title(newTitle) {
+  setTitle(newTitle) {
     if (newTitle.length < this.constructor.TITLE_MIN_LENGTH) {
       throw { message: `Title must be at least ${this.constructor.TITLE_MIN_LENGTH} characters long.` };
     }
@@ -31,11 +31,11 @@ class ProductModel {
   }
 
 
-  get description() {
+  getDescription() {
     return this.description;
   }
 
-  set description(newDescription) {
+  setDescription(newDescription) {
     if (newDescription.length < this.constructor.DESCRIPTION_MIN_LENGTH) {
       throw { message: `Description must be at least ${this.constructor.DESCRIPTION_MIN_LENGTH} characters long.` };
     }
@@ -48,22 +48,22 @@ class ProductModel {
   }
 
 
-  get image() {
+  getImage() {
     return this.image;
   }
 
-  set image(newImage) {
+  setImage(newImage) {
     // Check for mime-type
-    this.image = image;
+    this.image = newImage;
   }
 
 
-  get price() {
+  getPrice() {
     return this.price;
   }
 
-  set price(newPrice) {
-    if (newPrice < 0) {
+  setPrice(newPrice) {
+    if (Number(newPrice) < 0) {
       throw { message: 'The price of the product cannot be a negative number.' };
     }
 

@@ -33,6 +33,10 @@ module.exports = {
         use: ['raw-loader']
       },
       {
+        test: /\.hbs$/,
+        use: ['handlebars-loader']
+      },
+      {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({ use: ['css-loader'] })
       },

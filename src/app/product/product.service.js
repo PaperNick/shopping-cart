@@ -1,7 +1,10 @@
 class ProductService {
   constructor() {
-    this.products = localStorage.getItem('productList') || [];
-    this.lastProductId = localStorage.getItem('lastProductId') || 0;
+    this.products = localStorage.getItem('productList') ? JSON.parse(localStorage.getItem('productList')) : [];
+  }
+
+  getAll() {
+    return JSON.parse(localStorage.getItem('productList'));
   }
 
   findById(productId) {
@@ -10,13 +13,30 @@ class ProductService {
 
   save(product) {
     if (!product.id) {
-      product.id = ++this.lastProductId;
+      product.id = this.getLastProductId();
+      product.id = product.id + 1;
     }
 
     this.products.push(product);
+    localStorage.setItem('productList', JSON.stringify(this.products));
 
-    localStorage.setItem('productList', this.products);
-    localStorage.setItem('lastProductId', this.lastProductId);
+    return product;
+  }
+
+  delete(productId) {
+    let product = this.findById(Number(productId));
+    let productIndex = this.products.indexOf(product);
+
+    this.products.splice(productIndex, 1);
+    localStorage.setItem('productList', JSON.stringify(this.products));
+  }
+
+  getLastProductId() {
+    if (this.products.length > 0) {
+      return this.products[this.products.length -1].id;
+    }
+
+    return 0;
   }
 }
 
