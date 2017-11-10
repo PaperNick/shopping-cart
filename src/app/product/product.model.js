@@ -5,12 +5,14 @@ class ProductModel {
   static get DESCRIPTION_MIN_LENGTH() { return 5; }
   static get DESCRIPTION_MAX_LENGTH() { return 500; }
 
+  static get MAX_IMAGE_SIZE_IN_BYTES() { return 3 * 1024 * 1024; }
 
-  constructor(id, title, description, image, price) {
-    this.id =id;
+
+  constructor(id, title, description, image, imageSizeBytes, price) {
+    this.id = id;
     this.setTitle(title);
     this.setDescription(description);
-    this.setImage(image);
+    this.setImage(image, imageSizeBytes);
     this.setPrice(price);
   }
 
@@ -52,8 +54,13 @@ class ProductModel {
     return this.image;
   }
 
-  setImage(newImage) {
-    // Check for mime-type
+  setImage(newImage, newImageSizeBytes) {
+    // TODO: Check for mime-type
+    if (Number(newImageSizeBytes) > this.constructor.MAX_IMAGE_SIZE_IN_BYTES) {
+      let maxSizeInMB = this.constructor.MAX_IMAGE_SIZE_IN_BYTES / 1024 / 1024;
+      throw { message: `Cannot upload image larger than ${maxSizeInMB} MB` };
+    }
+
     this.image = newImage;
   }
 
