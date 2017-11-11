@@ -12,11 +12,11 @@ appComponent.init();
 let productComponent = new ProductComponent(productService);
 
 // Handle dynamic triggers for rendering
-window.addEventListener('renderBody', (event) => {
+window.addEventListener('renderProducts', (event) => {
   document.querySelector('.main').innerHTML = event.detail;
   productComponent.initEventListeners();
 }, false);
 
 // Set the main component for the page
-let renderBodyEvent = new CustomEvent('renderBody', { detail: productComponent.render() });
-window.dispatchEvent(renderBodyEvent);
+let renderProductsEvent = new CustomEvent('renderProducts', { detail: productComponent.render() });
+window.dispatchEvent(renderProductsEvent);
