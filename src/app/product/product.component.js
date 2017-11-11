@@ -81,7 +81,7 @@ class ProductComponent {
   }
 
   emitRender() {
-    let renderEvent = new CustomEvent('render', { detail: this.render() });
+    let renderEvent = new CustomEvent('renderBody', { detail: this.render() });
     window.dispatchEvent(renderEvent);
   }
 

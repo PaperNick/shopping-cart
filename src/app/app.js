@@ -10,11 +10,13 @@ let appComponent = new AppComponent(productService);
 appComponent.init();
 
 let productComponent = new ProductComponent(productService);
-document.querySelector('.main').innerHTML = productComponent.render();
-productComponent.initEventListeners();
 
-// Handle dynamic triggers for render
-window.addEventListener('render', (event) => {
+// Handle dynamic triggers for rendering
+window.addEventListener('renderBody', (event) => {
   document.querySelector('.main').innerHTML = event.detail;
   productComponent.initEventListeners();
 }, false);
+
+// Set the main component for the page
+let renderBodyEvent = new CustomEvent('renderBody', { detail: productComponent.render() });
+window.dispatchEvent(renderBodyEvent);
