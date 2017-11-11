@@ -50,8 +50,8 @@ class AppComponent {
   }
 
   init() {
-    let defaultProducts = localStorage.getItem('productList') || JSON.stringify(this.defaultProducts());
-    localStorage.setItem('productList', defaultProducts);
+    let defaultProducts = localStorage.getItem('products') || JSON.stringify(this.defaultProducts());
+    localStorage.setItem('products', defaultProducts);
   }
 }
 

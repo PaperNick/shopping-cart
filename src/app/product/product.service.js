@@ -1,10 +1,10 @@
 class ProductService {
   constructor() {
-    this.products = localStorage.getItem('productList') ? JSON.parse(localStorage.getItem('productList')) : [];
+    this.products = localStorage.getItem('products') ? JSON.parse(localStorage.getItem('products')) : [];
   }
 
   getAll() {
-    return JSON.parse(localStorage.getItem('productList'));
+    return JSON.parse(localStorage.getItem('products'));
   }
 
   findById(productId) {
@@ -21,7 +21,7 @@ class ProductService {
       this.products[productIndex] = product;
     }
 
-    localStorage.setItem('productList', JSON.stringify(this.products));
+    localStorage.setItem('products', JSON.stringify(this.products));
 
     return product;
   }
@@ -30,7 +30,7 @@ class ProductService {
     let productIndex = this.getAll().findIndex(p => p.id == productId);
 
     this.products.splice(productIndex, 1);
-    localStorage.setItem('productList', JSON.stringify(this.products));
+    localStorage.setItem('products', JSON.stringify(this.products));
   }
 
   getLastProductId() {
