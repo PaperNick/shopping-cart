@@ -1,12 +1,12 @@
 <div class="col-md-12">
   <div class="row margin-top-20">
     <div class="text-center">
-      <h3>Cart content</h3>
+      <h2>Cart content</h2>
     </div>
   </div>
 
   <div class="row">
-    {{#each products}}
+    {{#each cartItems}}
       <div class="margin-top-20">
 
         <div class="col-md-4 col-sm-4 col-xs-6">
@@ -23,9 +23,8 @@
 
             <h4 class="card-title">{{product.title}}</h4>
             <img src="{{product.image}}" alt="Product image {{product.id}}">
-            <p class="card-text">Quantity: {{quantity}}$</p>
-            <p class="card-text">Price: {{priceFromQuantity}}$</p>
-            <button class="btn btn-primary">Add to basket</button>
+            <p class="card-text">Quantity: {{quantity}}</p>
+            <p class="card-text">Price: {{itemPrice}}</p>
           </div>
         </div>
 
@@ -33,4 +32,4 @@
     {{/each}}
   </div>
 
-  </div>
+</div>

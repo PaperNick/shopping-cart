@@ -11,12 +11,16 @@ class CartModel {
   }
 
   addProduct(product, quantity) {
+    if (Number(quantity) <= 0) {
+      throw { message: 'The quantity of a product cannot be less than or equal to 0.'};
+    }
+
     let existingCartItemIndex = this.content.findIndex(item => item.product.id == product.id);
 
     if (existingCartItemIndex === -1) {
       this.content.push({ product, quantity });
     } else {
-      this.content[existingCartItemIndex].quantity = this.content[existingCartItemIndex].quantity + quantity;
+      this.content[existingCartItemIndex].quantity = Number(this.content[existingCartItemIndex].quantity) + Number(quantity);
     }
   }
 
@@ -42,14 +46,18 @@ class CartModel {
     }
 
     let productsPrice = this.content
-      .map(item => item.product.price * item.quantity)
-      .reduce((previous, current) => previous + current);
+      .map(item => Number(item.product.price) * Number(item.quantity))
+      .reduce((previous, current) => Number(previous) + Number(current));
     
     return productsPrice;
   }
 
   getShippingFee(productsPrice) {
-    return productsPrice * 0.05;
+    return Number(productsPrice) * 0.05;
+  }
+
+  static itemPrice(product, quantity) {
+    return Number(product.price) * Number(quantity);
   }
 }
 

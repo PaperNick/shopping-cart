@@ -1,16 +1,22 @@
 import $ from 'jquery';
 import productsPage from './product.template.hbs';
 import ProductModel from './product.model';
+import CartModel from '../cart/cart.model';
 
-class ProductComponent {  
-  constructor(productService) {
+class ProductComponent {
+  constructor(productService, cartService) {
     this.productService = productService;
+    this.cartService = cartService;
   }
 
   render() {
     return productsPage(
       { products: this.productService.getAll() }
     );
+  }
+
+  emitRender() {
+    window.dispatchEvent(new Event('renderProducts'));
   }
 
   initEventListeners() {
@@ -32,11 +38,12 @@ class ProductComponent {
     $('.remove-product').on('click', this.deleteProduct.bind(this));
     $('.edit.glyphicon-pencil').on('click', this.openEditModal.bind(this));
     $('#edit-product-form').on('submit', this.editProduct.bind(this));
+    $('.add-product-to-cart-form').on('submit', this.addToCart.bind(this));
   }
 
   createProduct(event) {
     event.preventDefault();
-    
+
     try {
       let formData = $('#new-product-form').serializeArray();
       let $image = $('#new-product-image');
@@ -80,11 +87,6 @@ class ProductComponent {
     $('#edit-product-price').attr('value', product.getPrice());
   }
 
-  emitRender() {
-    let renderEvent = new CustomEvent('renderProducts', { detail: this.render() });
-    window.dispatchEvent(renderEvent);
-  }
-
   editProduct(event) {
     event.preventDefault();
 
@@ -104,6 +106,25 @@ class ProductComponent {
 
       $('#edit-product-modal').modal('hide');
       this.emitRender();
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  addToCart(event) {
+    event.preventDefault();
+
+    let productId = $(event.target).attr('data-product-id');
+    let product = ProductModel.fromState(this.productService.findById(productId));
+
+    let productFormData = $(event.target).serializeArray();
+    let productQuantity = productFormData[0].value;
+
+    try {
+      let cart = new CartModel(this.cartService.getAll());
+      cart.addProduct(product, productQuantity);
+      this.cartService.save(cart);
+      window.dispatchEvent(new Event('renderCart'));
     } catch (error) {
       alert(error.message);
     }

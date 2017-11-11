@@ -1,6 +1,11 @@
 class CartService {
   constructor() {
-    this.cart = localStorage.getItem('cart') || [];
+    this.cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+
+    // Init localStorage
+    if (this.cart.length === 0) {
+      localStorage.setItem('cart', JSON.stringify([]));
+    }
   }
 
   getAll() {
@@ -9,7 +14,7 @@ class CartService {
 
   save(cart) {
     this.cart = cart;
-    localStorage.setItem('cart', JSON.stringify(this.cart));
+    localStorage.setItem('cart', JSON.stringify(this.cart.content));
   }
 
   clear() {

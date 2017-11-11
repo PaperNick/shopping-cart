@@ -91,7 +91,7 @@
         </div>
 
       </div>
-    </div>    
+    </div>
   </div>
 
   <div class="row">
@@ -113,11 +113,17 @@
               </div>
             </div>
 
-            <h4 class="card-title">{{title}}</h4>
-            <p class="card-text">{{description}}</p>
-            <img src="{{image}}" alt="Product image {{id}}">
-            <p class="card-text">Price: {{price}}$</p>
-            <button class="btn btn-primary">Add to basket</button>
+            <form class="form-inline add-product-to-cart-form" data-product-id="{{id}}">
+              <h4 class="card-title">{{title}}</h4>
+              <p class="card-text">{{description}}</p>
+              <img src="{{image}}" alt="Product image {{id}}">
+              <p class="card-text">Price: {{price}}$</p>
+              <div class="form-group">
+                <label for="edit-product-title">Quantity:</label>
+                <input type="text" class="form-control" name="cart-product-quantity">
+              </div>
+              <button type="submit" class="btn btn-primary margin-top-10">Add to cart</button>
+            </form>
           </div>
         </div>
 
@@ -125,4 +131,4 @@
     {{/each}}
   </div>
 
-  </div>
+</div>
