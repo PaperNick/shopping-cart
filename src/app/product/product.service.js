@@ -17,8 +17,7 @@ class ProductService {
       product.id = product.id + 1;
       this.products.push(product);
     } else {
-      let existingProduct = this.findById(product.id);
-      let productIndex = this.products.indexOf(existingProduct);
+      let productIndex = this.getAll().findIndex(p => p.id == product.id);
       this.products[productIndex] = product;
     }
 
@@ -28,8 +27,7 @@ class ProductService {
   }
 
   delete(productId) {
-    let product = this.findById(productId);
-    let productIndex = this.products.indexOf(product);
+    let productIndex = this.getAll().findIndex(p => p.id == productId);
 
     this.products.splice(productIndex, 1);
     localStorage.setItem('productList', JSON.stringify(this.products));

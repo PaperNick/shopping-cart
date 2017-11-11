@@ -14,14 +14,14 @@ class ProductComponent {
   }
 
   initEventListeners() {
-    $('#new-product-image').on('change', function () {
+    $('#new-product-image, #edit-product-image').on('change', function () {
       if (this.files && this.files[0]) {
         let file = this.files[0];
         let fileReader = new FileReader();
 
-        fileReader.addEventListener('load', function (event) {
-          $('#new-product-image-preview').attr('src', event.target.result);
-          $('#new-product-image-preview').attr('data-image-size', file.size);
+        fileReader.addEventListener('load', (event) => {
+          $(this).attr('value', event.target.result)
+          $(this).attr('data-image-size', file.size);
         });
 
         fileReader.readAsDataURL(this.files[0]);
@@ -39,11 +39,11 @@ class ProductComponent {
     
     try {
       let formData = $('#new-product-form').serializeArray();
-      let $image = $('#new-product-image-preview');
+      let $image = $('#new-product-image');
 
       let title = formData[0].value;
       let description = formData[1].value;
-      let image = $image.attr('src');
+      let image = $image.attr('value');
       let imageSize = $image.attr('data-image-size');
       let price = formData[2].value;
 
@@ -70,14 +70,14 @@ class ProductComponent {
     event.preventDefault();
 
     let productId = $(event.target).attr('data-product-id');
-    let product = this.productService.findById(productId);
+    let product = ProductModel.fromState(this.productService.findById(productId));
 
     $('#edit-product-id').attr('value', product.id);
-    $('#edit-product-title').attr('value', product.title);
-    $('#edit-product-description').attr('value', product.description);
-    $('#edit-product-image').attr('value', product.image);
-    $('#edit-product-image-preview').attr('src', product.image);
-    $('#edit-product-price').attr('value', product.price);
+    $('#edit-product-title').attr('value', product.getTitle());
+    $('#edit-product-description').attr('value', product.getDescription());
+    $('#edit-product-image').attr('value', product.getImage());
+    $('#edit-product-image').attr('data-image-size', product.getImageSize());
+    $('#edit-product-price').attr('value', product.getPrice());
   }
 
   emitRender() {
@@ -90,12 +90,12 @@ class ProductComponent {
 
     try {
       let formData = $('#edit-product-form').serializeArray();
-      let $image = $('#edit-product-image-preview');
+      let $image = $('#edit-product-image');
 
       let id = formData[0].value;
       let title = formData[1].value;
       let description = formData[2].value;
-      let image = $image.attr('src');
+      let image = $image.attr('value');
       let imageSize = $image.attr('data-image-size');
       let price = formData[3].value;
 
