@@ -106,6 +106,7 @@ class ProductComponent {
 
       $('#edit-product-modal').modal('hide');
       this.emitRender();
+      window.dispatchEvent(new CustomEvent('productEdited', { detail: product }));
     } catch (error) {
       alert(error.message);
     }

@@ -6,6 +6,7 @@ import CartComponent from './cart/cart.component';
 
 import ProductService from './product/product.service';
 import CartService from './cart/cart.service';
+import CartModel from './cart/cart.model';
 
 
 let productService = new ProductService();
@@ -27,6 +28,15 @@ window.addEventListener('renderProducts', (event) => {
 window.addEventListener('renderCart', (event) => {
   document.querySelector('.main-cart').innerHTML = cartComponent.render();
   cartComponent.initEventListeners();
+}, false);
+
+// Recalculate product price when the product is updated
+window.addEventListener('productEdited', (event) => {
+  let cart = new CartModel(cartService.getAll());
+  let product = event.detail;
+  cart.recalculateProduct(product);
+  cartService.save(cart);
+  window.dispatchEvent(new Event('renderCart'));
 }, false);
 
 

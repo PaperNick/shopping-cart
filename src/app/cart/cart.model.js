@@ -28,6 +28,16 @@ class CartModel {
     this.content.splice(cartItemIndex, 1);
   }
 
+  recalculateProduct(product) {
+    let cartItem = this.content.find(item => item.product.id == product.id);
+
+    if (!cartItem) {
+      return false;
+    }
+
+    cartItem.product.price = product.price;
+  }
+
   calculateTotal() {
     let subtotal = this.calculateSubtotal();
 
