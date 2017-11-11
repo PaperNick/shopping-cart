@@ -19,8 +19,22 @@ class CartComponent {
   }
 
   emitRender() {
-    let renderEvent = new CustomEvent('renderCart', { detail: this.render() });
-    window.dispatchEvent(renderEvent);
+    window.dispatchEvent(new Event('renderCart'));
+  }
+
+  initEventListeners() {
+    $('.remove-cart-item').on('click', this.removeProductFromCart.bind(this));
+  }
+
+  removeProductFromCart(event) {
+    event.preventDefault();
+
+    let cartItemIndex = $(event.target).attr('data-cart-item-id');
+    let cart = new CartModel(this.cartService.getAll());
+
+    cart.removeProduct(cartItemIndex);
+    this.cartService.save(cart);
+    this.emitRender();
   }
 }
 

@@ -24,14 +24,8 @@ class CartModel {
     }
   }
 
-  removeProduct(product) {
-    let existingCartItemIndex = this.content.findIndex(item => item.product.id == product.id);
-
-    if (existingCartItemIndex === -1) {
-      throw { message: 'Could not find the given product in the cart' };
-    }
-
-    this.content.splice(existingCartItemIndex, 1);
+  removeProduct(cartItemIndex) {
+    this.content.splice(cartItemIndex, 1);
   }
 
   calculateTotal() {

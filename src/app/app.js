@@ -26,7 +26,7 @@ window.addEventListener('renderProducts', (event) => {
 
 window.addEventListener('renderCart', (event) => {
   document.querySelector('.main-cart').innerHTML = cartComponent.render();
-  // cartComponent.initEventListeners();
+  cartComponent.initEventListeners();
 }, false);
 
 
