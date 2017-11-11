@@ -1,0 +1,36 @@
+<div class="col-md-12">
+  <div class="row margin-top-20">
+    <div class="text-center">
+      <h3>Cart content</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    {{#each products}}
+      <div class="margin-top-20">
+
+        <div class="col-md-4 col-sm-4 col-xs-6">
+          <div class="card card-block text-center">
+
+            <div class="clearfix">
+              <div class="pull-right">
+                <span class="margin-right-10"></span>
+                <a href="#">
+                  <span class="remove-cart-item glyphicon glyphicon-remove" data-cart-item-id="{{@index}}"></span>
+                </a>
+              </div>
+            </div>
+
+            <h4 class="card-title">{{product.title}}</h4>
+            <img src="{{product.image}}" alt="Product image {{product.id}}">
+            <p class="card-text">Quantity: {{quantity}}$</p>
+            <p class="card-text">Price: {{priceFromQuantity}}$</p>
+            <button class="btn btn-primary">Add to basket</button>
+          </div>
+        </div>
+
+      </div>
+    {{/each}}
+  </div>
+
+  </div>

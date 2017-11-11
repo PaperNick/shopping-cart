@@ -1,28 +1,20 @@
 class CartService {
   constructor() {
-    this.products = localStorage.getItem('cartContent') || [];
+    this.cart = localStorage.getItem('cart') || [];
   }
 
-  add(product, quantity) {
-    // TODO: if product with the same id is passed, update quantity only
-    this.products.push(product);
-    localStorage.setItem('cartContent', this.products);
+  getAll() {
+    return JSON.parse(localStorage.getItem('cart'));
   }
 
-  remove(product) {
-    // Pseudo code, use searching for product.id instead
-    let productIndex = this.products.indexOf(product);
-
-    if (productIndex === -1) {
-      throw { message: 'Could not find the given product in the cart' };
-    }
-
-    this.products.splice(productIndex, 1);
+  save(cart) {
+    this.cart = cart;
+    localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
   clear() {
-    this.products = [];
-    localStorage.setItem('cartContent', []);
+    this.cart = [];
+    localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 }
 
