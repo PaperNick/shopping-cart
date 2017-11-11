@@ -9,13 +9,17 @@ class CartComponent {
   }
 
   render() {
-    let cart = this.cartService.getAll();
+    let cart = new CartModel(this.cartService.getAll());
 
-    cart.forEach((cartItem, itemIdex) => {
+    cart.content.forEach((cartItem, itemIdex) => {
       cartItem.itemPrice = CartModel.itemPrice(cartItem.product, cartItem.quantity);
     });
 
-    return cartTemplate({ cartItems: cart });
+    return cartTemplate({
+      cartItems: cart.content,
+      subtotal: cart.calculateSubtotal(),
+      total: cart.calculateTotal(),
+    });
   }
 
   emitRender() {
@@ -24,6 +28,7 @@ class CartComponent {
 
   initEventListeners() {
     $('.remove-cart-item').on('click', this.removeProductFromCart.bind(this));
+    $('#cart-checkout').on('click', this.clearCart.bind(this));
   }
 
   removeProductFromCart(event) {
@@ -34,6 +39,12 @@ class CartComponent {
 
     cart.removeProduct(cartItemIndex);
     this.cartService.save(cart);
+    this.emitRender();
+  }
+
+  clearCart(event) {
+    event.preventDefault();
+    this.cartService.clear();
     this.emitRender();
   }
 }
